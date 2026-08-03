@@ -38,24 +38,31 @@ export function Aside({children, heading, type}) {
   }, [close, expanded]);
 
   return (
-    <div
-      aria-modal
-      className={`overlay ${expanded ? 'expanded' : ''}`}
-      role="dialog"
-      aria-labelledby={id}
-    >
-      <button className="close-outside" onClick={close} />
-      <aside>
-        <header>
-          <h3 id={id}>{heading}</h3>
-          <button className="close reset" onClick={close} aria-label="Close">
-            &times;
-          </button>
-        </header>
-        <main>{children}</main>
-      </aside>
-    </div>
-  );
+  <div
+    aria-modal
+    className={`overlay ${expanded ? 'expanded' : ''}`}
+    role="dialog"
+    aria-labelledby={id}
+    onClick={close}
+  >
+    <aside onClick={(e) => e.stopPropagation()} className={`aside-${type}`}>
+      <header>
+        <h3 id={id}>{heading}</h3>
+    
+        <button
+          className="close reset"
+          onClick={close}
+          aria-label="Close"
+        >
+          &#10005;
+        </button>
+      </header>
+
+      <main>{children}</main>
+    </aside>
+  </div>
+);
+ 
 }
 
 const AsideContext = createContext(null);

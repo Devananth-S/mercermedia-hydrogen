@@ -50,7 +50,6 @@ export default function SearchPage() {
               ref={inputRef}
               type="search"
             />
-            &nbsp;
             <button type="submit">Search</button>
           </>
         )}

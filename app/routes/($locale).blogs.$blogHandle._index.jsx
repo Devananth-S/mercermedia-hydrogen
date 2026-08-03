@@ -1,13 +1,13 @@
-import {Link, useLoaderData} from 'react-router';
-import {Image, getPaginationVariables} from '@shopify/hydrogen';
-import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
-import {redirectIfHandleIsLocalized} from '~/lib/redirect';
+import { Link, useLoaderData } from 'react-router';
+import { Image, getPaginationVariables } from '@shopify/hydrogen';
+import { PaginatedResourceSection } from '~/components/PaginatedResourceSection';
+import { redirectIfHandleIsLocalized } from '~/lib/redirect';
 
 /**
  * @type {Route.MetaFunction}
  */
-export const meta = ({data}) => {
-  return [{title: `Hydrogen | ${data?.blog.title ?? ''} blog`}];
+export const meta = ({ data }) => {
+  return [{ title: `Hydrogen | ${data?.blog.title ?? ''} blog` }];
 };
 
 /**
@@ -20,7 +20,7 @@ export async function loader(args) {
   // Await the critical data required to render initial state of the page
   const criticalData = await loadCriticalData(args);
 
-  return {...deferredData, ...criticalData};
+  return { ...deferredData, ...criticalData };
 }
 
 /**
@@ -28,16 +28,16 @@ export async function loader(args) {
  * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
  * @param {Route.LoaderArgs}
  */
-async function loadCriticalData({context, request, params}) {
+async function loadCriticalData({ context, request, params }) {
   const paginationVariables = getPaginationVariables(request, {
     pageBy: 4,
   });
 
   if (!params.blogHandle) {
-    throw new Response(`blog not found`, {status: 404});
+    throw new Response(`blog not found`, { status: 404 });
   }
 
-  const [{blog}] = await Promise.all([
+  const [{ blog }] = await Promise.all([
     context.storefront.query(BLOGS_QUERY, {
       variables: {
         blogHandle: params.blogHandle,
@@ -48,12 +48,12 @@ async function loadCriticalData({context, request, params}) {
   ]);
 
   if (!blog?.articles) {
-    throw new Response('Not found', {status: 404});
+    throw new Response('Not found', { status: 404 });
   }
 
-  redirectIfHandleIsLocalized(request, {handle: params.blogHandle, data: blog});
+  redirectIfHandleIsLocalized(request, { handle: params.blogHandle, data: blog });
 
-  return {blog};
+  return { blog };
 }
 
 /**
@@ -62,26 +62,48 @@ async function loadCriticalData({context, request, params}) {
  * Make sure to not throw any errors here, as it will cause the page to 500.
  * @param {Route.LoaderArgs}
  */
-function loadDeferredData({context}) {
+function loadDeferredData({ context }) {
   return {};
 }
 
 export default function Blog() {
   /** @type {LoaderReturnData} */
-  const {blog} = useLoaderData();
-  const {articles} = blog;
+  const { blog } = useLoaderData();
+  const { articles } = blog;
 
   return (
     <div className="blog">
       <h1>{blog.title}</h1>
       <div className="blog-grid">
-        <PaginatedResourceSection connection={articles}>
-          {({node: article, index}) => (
-            <ArticleItem
-              article={article}
+        <PaginatedResourceSection
+          connection={blog.articles}
+          resourcesClassName="blog-articles"
+        >
+          {({ node: article }) => (
+            <div
               key={article.id}
-              loading={index < 2 ? 'eager' : 'lazy'}
-            />
+              className="blog-article"
+            >
+              <Link
+                to={`/blogs/${blog.handle}/${article.handle}`}
+                className="blog-card"
+              >
+                <Image
+                  data={article.image}
+                  aspectRatio="16/9"
+                  sizes="400px"
+                />
+
+                <div className="blog-card-content">
+                  <h3>{article.title}</h3>
+                  <p>{article.excerpt}</p>
+
+                  <span className="read-more">
+                    Read More →
+                  </span>
+                </div>
+              </Link>
+            </div>
           )}
         </PaginatedResourceSection>
       </div>
@@ -95,7 +117,7 @@ export default function Blog() {
  *   loading?: HTMLImageElement['loading'];
  * }}
  */
-function ArticleItem({article, loading}) {
+function ArticleItem({ article, loading }) {
   const publishedAt = new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
     month: 'long',
@@ -124,7 +146,7 @@ function ArticleItem({article, loading}) {
 
 // NOTE: https://shopify.dev/docs/api/storefront/latest/objects/blog
 const BLOGS_QUERY = `#graphql
-  query Blog(
+  query BlogDetails(
     $language: LanguageCode
     $blogHandle: String!
     $first: Int

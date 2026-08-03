@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import {useAside} from '~/components/Aside';
 import {CartLineItem} from '~/components/CartLineItem';
 import {CartSummary} from './CartSummary';
+import { FiX } from 'react-icons/fi';
 /**
  * Returns a map of all line items and their children.
  * @param {CartLine[]} lines
@@ -34,7 +35,9 @@ function getLineItemChildrenMap(lines) {
 export function CartMain({layout, cart: originalCart}) {
   // The useOptimisticCart hook applies pending actions to the cart
   // so the user immediately sees feedback when they modify the cart.
+   const { close } = useAside();
   const cart = useOptimisticCart(originalCart);
+ 
 
   const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
   const withDiscount =
@@ -54,7 +57,7 @@ export function CartMain({layout, cart: originalCart}) {
         <p id="cart-lines" className="sr-only">
           Line items
         </p>
-        <div>
+        <div className="cart-inner-items">
           <ul aria-labelledby="cart-lines">
             {(cart?.lines?.nodes ?? []).map((line) => {
               // we do not render non-parent lines at the root of the cart
@@ -92,12 +95,12 @@ function CartEmpty({hidden = false}) {
   return (
     <div hidden={hidden}>
       <br />
-      <p>
+      <p className="cart-empty">
         Looks like you haven&rsquo;t added anything yet, let&rsquo;s get you
         started!
       </p>
       <br />
-      <Link to="/collections" onClick={close} prefetch="viewport">
+      <Link to="/collections" className='continue_btn' onClick={close} prefetch="viewport">
         Continue shopping →
       </Link>
     </div>

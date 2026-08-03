@@ -1,8 +1,10 @@
-import {CartForm, Image} from '@shopify/hydrogen';
-import {useVariantUrl} from '~/lib/variants';
-import {Link} from 'react-router';
-import {ProductPrice} from './ProductPrice';
-import {useAside} from './Aside';
+import { CartForm, Image } from '@shopify/hydrogen';
+import { useVariantUrl } from '~/lib/variants';
+import { Link } from 'react-router';
+import { ProductPrice } from './ProductPrice';
+import { useAside } from './Aside';
+import { FiTrash2 } from 'react-icons/fi';
+import { FiTrash } from 'react-icons/fi';
 
 /**
  * A single line item in the cart. It displays the product image, title, price.
@@ -15,53 +17,56 @@ import {useAside} from './Aside';
  *   childrenMap: LineItemChildrenMap;
  * }}
  */
-export function CartLineItem({layout, line, childrenMap}) {
-  const {id, merchandise} = line;
-  const {product, title, image, selectedOptions} = merchandise;
+export function CartLineItem({ layout, line, childrenMap }) {
+  const { id, merchandise } = line;
+  const { product, title, image, selectedOptions } = merchandise;
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
-  const {close} = useAside();
+  const { close } = useAside();
   const lineItemChildren = childrenMap[id];
   const childrenLabelId = `cart-line-children-${id}`;
 
   return (
     <li key={id} className="cart-line">
       <div className="cart-line-inner">
-        {image && (
-          <Image
-            alt={title}
-            aspectRatio="1/1"
-            data={image}
-            height={100}
-            loading="lazy"
-            width={100}
-          />
-        )}
-
-        <div>
-          <Link
-            prefetch="intent"
-            to={lineItemUrl}
-            onClick={() => {
-              if (layout === 'aside') {
-                close();
-              }
-            }}
-          >
-            <p>
-              <strong>{product.title}</strong>
-            </p>
-          </Link>
-          <ProductPrice price={line?.cost?.totalAmount} />
-          <ul>
-            {selectedOptions.map((option) => (
-              <li key={option.name}>
-                <small>
-                  {option.name}: {option.value}
-                </small>
-              </li>
-            ))}
-          </ul>
-          <CartLineQuantity line={line} />
+        <div className="cart-line-details-image">
+            {image && (
+              <Image
+                alt={title}
+                aspectRatio="1/1"
+                data={image}
+                height={100}
+                loading="lazy"
+                width={100}
+              />
+            )}
+        </div>
+        <div className="cart-line-details-left"> 
+              <Link
+                prefetch="intent"
+                to={lineItemUrl}
+                onClick={() => {
+                  if (layout === 'aside') {
+                    close();
+                  }
+                }}
+              >
+                <p>
+                  <strong>{product.title}</strong>
+                </p>
+              </Link>
+              <ProductPrice price={line?.cost?.totalAmount} />
+              <ul className="cart-line-options" aria-label="Product options">
+                {selectedOptions.map((option) => (
+                  <li key={option.name}>
+                    <small>
+                      {option.name}: {option.value}
+                    </small>
+                  </li>
+                ))}
+              </ul>
+          </div>
+          <div className="cart-line-details-right">
+                <CartLineQuantity line={line} />
         </div>
       </div>
 
@@ -92,38 +97,50 @@ export function CartLineItem({layout, line, childrenMap}) {
  * hasn't yet responded that it was successfully added to the cart.
  * @param {{line: CartLine}}
  */
-function CartLineQuantity({line}) {
+function CartLineQuantity({ line }) {
   if (!line || typeof line?.quantity === 'undefined') return null;
-  const {id: lineId, quantity, isOptimistic} = line;
+  const { id: lineId, quantity, isOptimistic } = line;
   const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
   const nextQuantity = Number((quantity + 1).toFixed(0));
 
   return (
     <div className="cart-line-quantity">
-      <small>Quantity: {quantity} &nbsp;&nbsp;</small>
-      <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
+      <small className="qty-label">Qty</small>
+
+      <div className="qty-box">
+        <CartLineUpdateButton lines={[{ id: lineId, quantity: prevQuantity }]}>
+          <button
+            aria-label="Decrease quantity"
+            disabled={quantity <= 1 || !!isOptimistic}
+          >
+            −
+          </button>
+        </CartLineUpdateButton>
+
+        <span className="qty-count">{quantity}</span>
+
+        <CartLineUpdateButton lines={[{ id: lineId, quantity: nextQuantity }]}>
+          <button
+            aria-label="Increase quantity"
+            disabled={!!isOptimistic}
+          >
+            +
+          </button>
+        </CartLineUpdateButton>
+      </div>
+
+      <CartLineRemoveButton
+        lineIds={[lineId]}
+        disabled={!!isOptimistic}
+      >
         <button
-          aria-label="Decrease quantity"
-          disabled={quantity <= 1 || !!isOptimistic}
-          name="decrease-quantity"
-          value={prevQuantity}
+          type="button"
+          className="remove-btn"
+          aria-label="Remove item"
         >
-          <span>&#8722; </span>
+          <FiTrash />
         </button>
-      </CartLineUpdateButton>
-      &nbsp;
-      <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
-        <button
-          aria-label="Increase quantity"
-          name="increase-quantity"
-          value={nextQuantity}
-          disabled={!!isOptimistic}
-        >
-          <span>&#43;</span>
-        </button>
-      </CartLineUpdateButton>
-      &nbsp;
-      <CartLineRemoveButton lineIds={[lineId]} disabled={!!isOptimistic} />
+      </CartLineRemoveButton>
     </div>
   );
 }
@@ -137,13 +154,13 @@ function CartLineQuantity({line}) {
  *   disabled: boolean;
  * }}
  */
-function CartLineRemoveButton({lineIds, disabled}) {
+function CartLineRemoveButton({ lineIds, disabled }) {
   return (
     <CartForm
       fetcherKey={getUpdateKey(lineIds)}
       route="/cart"
       action={CartForm.ACTIONS.LinesRemove}
-      inputs={{lineIds}}
+      inputs={{ lineIds }}
     >
       <button disabled={disabled} type="submit">
         Remove
@@ -158,7 +175,7 @@ function CartLineRemoveButton({lineIds, disabled}) {
  *   lines: CartLineUpdateInput[];
  * }}
  */
-function CartLineUpdateButton({children, lines}) {
+function CartLineUpdateButton({ children, lines }) {
   const lineIds = lines.map((line) => line.id);
 
   return (
@@ -166,7 +183,7 @@ function CartLineUpdateButton({children, lines}) {
       fetcherKey={getUpdateKey(lineIds)}
       route="/cart"
       action={CartForm.ACTIONS.LinesUpdate}
-      inputs={{lines}}
+      inputs={{ lines }}
     >
       {children}
     </CartForm>

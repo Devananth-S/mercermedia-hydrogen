@@ -10,13 +10,75 @@ export function Footer({footer: footerPromise, header, publicStoreDomain}) {
       <Await resolve={footerPromise}>
         {(footer) => (
           <footer className="footer">
-            {footer?.menu && header.shop.primaryDomain?.url && (
-              <FooterMenu
-                menu={footer.menu}
-                primaryDomainUrl={header.shop.primaryDomain.url}
-                publicStoreDomain={publicStoreDomain}
-              />
-            )}
+            <div className="footer-container">
+
+              {/* Logo */}
+              <div className="footer-column">
+                <img
+                   src={footer.shop.brand?.logo?.image?.url}
+                  alt="Mercer Media"
+                  className="footer-logo"
+                />
+
+                <p className="footer-text">
+                  Premium fashion destination built with Shopify Hydrogen.
+                  Discover modern collections with a seamless shopping
+                  experience.
+                </p>
+              </div>
+
+              {/* Shop Menu */}
+              <div className="footer-column">
+                <h3>Shop</h3>
+
+                {footer?.footerMenu && (
+                  <FooterMenu
+                    menu={footer.footerMenu}
+                    primaryDomainUrl={header.shop.primaryDomain.url}
+                    publicStoreDomain={publicStoreDomain}
+                  />
+                )}
+              </div>
+
+              {/* Support Menu */}
+              <div className="footer-column">
+                <h3>Support</h3>
+
+                {footer?.supportMenu && (
+                  <FooterMenu
+                    menu={footer.supportMenu}
+                    primaryDomainUrl={header.shop.primaryDomain.url}
+                    publicStoreDomain={publicStoreDomain}
+                  />
+                )}
+              </div>
+
+              {/* Newsletter */}
+              <div className="footer-column">
+                <h3>Newsletter</h3>
+
+                <p>
+                  Subscribe to receive updates on new arrivals and exclusive
+                  offers.
+                </p>
+
+                <form className="newsletter-form">
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                  />
+
+                  <button type="submit">
+                    Subscribe
+                  </button>
+                </form>
+              </div>
+
+            </div>
+
+            <div className="footer-bottom">
+              <p>© 2026 Mercer Media. All Rights Reserved.</p>
+            </div>
           </footer>
         )}
       </Await>

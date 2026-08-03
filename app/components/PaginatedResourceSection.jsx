@@ -14,9 +14,11 @@ export function PaginatedResourceSection({
   return (
     <Pagination connection={connection}>
       {({nodes, isLoading, PreviousLink, NextLink}) => {
-        const resourcesMarkup = nodes.map((node, index) =>
-          children({node, index}),
-        );
+        const resourcesMarkup = nodes.map((node, index) => (
+          <React.Fragment key={node.id ?? node.handle ?? index}>
+            {children({node, index})}
+          </React.Fragment>
+        ));
 
         return (
           <div>

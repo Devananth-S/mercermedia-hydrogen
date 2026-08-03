@@ -229,11 +229,10 @@ button.reset:hover:not(:has(> *)) {
   align-items: center;
   background: #fff;
   display: flex;
-  height: var(--header-height);
-  padding: 0 1rem;
+  padding: 0.9rem 1rem;
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 9999999999;
 }
 
 .header-menu-mobile-toggle {
@@ -254,7 +253,6 @@ button.reset:hover:not(:has(> *)) {
   @media (min-width: 45em) {
     display: flex;
     grid-gap: 1rem;
-    margin-left: 3rem;
   }
 }
 
@@ -333,10 +331,10 @@ button.reset:hover:not(:has(> *)) {
 .cart-summary-aside {
   background: white;
   border-top: 1px solid var(--color-dark);
-  bottom: 0;
+  bottom: 65px;
   padding-top: 0.75rem;
   position: absolute;
-  width: calc(var(--aside-width) - 40px);
+  width: calc(var(--aside-width) - 80px);
 }
 
 .cart-line-quantity {
@@ -487,6 +485,7 @@ button.reset:hover:not(:has(> *)) {
 .product-item img {
   height: auto;
   width: 100%;
+      object-fit: cover;
 }
 
 /*
@@ -643,3 +642,10 @@ button.reset:hover:not(:has(> *)) {
   gap: 0.75rem;
   flex-wrap: wrap;
 }
+/*
+* --------------------------------------------------
+* Deva Css
+* --------------------------------------------------
+*/
+
+

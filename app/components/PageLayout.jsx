@@ -1,4 +1,4 @@
-import {Await, Link} from 'react-router';
+import {Await, Link, useLocation} from 'react-router';
 import {Suspense, useId} from 'react';
 import {Aside} from '~/components/Aside';
 import {Footer} from '~/components/Footer';
@@ -21,6 +21,12 @@ export function PageLayout({
   isLoggedIn,
   publicStoreDomain,
 }) {
+  const {pathname} = useLocation();
+
+const pageClass =
+  pathname === '/'
+    ? 'template-index'
+    : `template-${pathname.split('/')[1]}`;
   return (
     <Aside.Provider>
       <CartAside cart={cart} />
@@ -34,7 +40,9 @@ export function PageLayout({
           publicStoreDomain={publicStoreDomain}
         />
       )}
-      <main>{children}</main>
+       <main className={`main ${pageClass}`}>
+      {children}
+    </main>
       <Footer
         footer={footer}
         header={header}

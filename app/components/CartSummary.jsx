@@ -49,7 +49,7 @@ function CartCheckoutActions({checkoutUrl}) {
   if (!checkoutUrl) return null;
 
   return (
-    <div>
+    <div className="cart-checkout-actions">
       <a href={checkoutUrl} target="_self">
         <p>Continue to Checkout &rarr;</p>
       </a>

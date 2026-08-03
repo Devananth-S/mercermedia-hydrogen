@@ -1,7 +1,7 @@
-import {ServerRouter} from 'react-router';
-import {isbot} from 'isbot';
-import {renderToReadableStream} from 'react-dom/server';
-import {createContentSecurityPolicy} from '@shopify/hydrogen';
+import { ServerRouter } from 'react-router';
+import { isbot } from 'isbot';
+import { renderToReadableStream } from 'react-dom/server';
+import { createContentSecurityPolicy } from '@shopify/hydrogen';
 
 /**
  * @param {Request} request
@@ -17,11 +17,29 @@ export default async function handleRequest(
   reactRouterContext,
   context,
 ) {
-  const {nonce, header, NonceProvider} = createContentSecurityPolicy({
-    shop: {
-      checkoutDomain: context.env.PUBLIC_CHECKOUT_DOMAIN,
-      storeDomain: context.env.PUBLIC_STORE_DOMAIN,
-    },
+
+
+  const { nonce, header, NonceProvider } = createContentSecurityPolicy({
+    scriptSrc: [
+      "'self'",
+      "'nonce-${nonce}'",
+      "https://cdn.shopify.com",
+      "https://shopify.com",
+      "https://cdn.judge.me",
+    ],
+    connectSrc: [
+      "'self'",
+      "https://cdn.judge.me",
+      "https://judge.me",
+      "https://api.judge.me",
+    ],
+    imgSrc: [
+      "'self'",
+      "data:",
+      "https:",
+      "https://cdn.judge.me",
+      "https://review-images.judge.me",
+    ],
   });
 
   const body = await renderToReadableStream(

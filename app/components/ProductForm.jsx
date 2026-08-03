@@ -1,6 +1,8 @@
-import {Link, useNavigate} from 'react-router';
-import {AddToCartButton} from './AddToCartButton';
-import {useAside} from './Aside';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router';
+import { AddToCartButton } from './AddToCartButton';
+import { useAside } from './Aside';
+
 
 /**
  * @param {{
@@ -8,9 +10,10 @@ import {useAside} from './Aside';
  *   selectedVariant: ProductFragment['selectedOrFirstAvailableVariant'];
  * }}
  */
-export function ProductForm({productOptions, selectedVariant}) {
+export function ProductForm({ productOptions, selectedVariant }) {
   const navigate = useNavigate();
-  const {open} = useAside();
+  const { open } = useAside();
+  const [quantity, setQuantity] = useState(1);
   return (
     <div className="product-form">
       {productOptions.map((option) => {
@@ -19,7 +22,7 @@ export function ProductForm({productOptions, selectedVariant}) {
 
         return (
           <div className="product-options" key={option.name}>
-            <h5>{option.name}</h5>
+            <h5>{option.name} : </h5>
             <div className="product-options-grid">
               {option.optionValues.map((value) => {
                 const {
@@ -89,29 +92,45 @@ export function ProductForm({productOptions, selectedVariant}) {
                 }
               })}
             </div>
-            <br />
           </div>
         );
       })}
-      <AddToCartButton
-        disabled={!selectedVariant || !selectedVariant.availableForSale}
-        onClick={() => {
-          open('cart');
-        }}
-        lines={
-          selectedVariant
-            ? [
+      <div className="product-form-btns">
+        <div className="quantity-selector">
+          <button
+            type="button"
+            onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
+          >
+            -
+          </button>
+          <span>{quantity}</span>
+          <button
+            type="button"
+            onClick={() => setQuantity((prev) => prev + 1)}
+          >
+            +
+          </button>
+        </div>
+        <AddToCartButton
+          disabled={!selectedVariant || !selectedVariant.availableForSale}
+          onClick={() => {
+            open('cart');
+          }}
+          lines={
+            selectedVariant
+              ? [
                 {
                   merchandiseId: selectedVariant.id,
-                  quantity: 1,
+                  quantity: quantity,
                   selectedVariant,
                 },
               ]
-            : []
-        }
-      >
-        {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}
-      </AddToCartButton>
+              : []
+          }
+        >
+          {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}
+        </AddToCartButton>
+      </div>
     </div>
   );
 }
@@ -122,7 +141,7 @@ export function ProductForm({productOptions, selectedVariant}) {
  *   name: string;
  * }}
  */
-function ProductOptionSwatch({swatch, name}) {
+function ProductOptionSwatch({ swatch, name }) {
   const image = swatch?.image?.previewImage?.url;
   const color = swatch?.color;
 

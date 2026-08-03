@@ -7,7 +7,7 @@ import {redirectIfHandleIsLocalized} from '~/lib/redirect';
  */
 export const meta = ({data}) => {
   return [{title: `Hydrogen | ${data?.article.title ?? ''} article`}];
-};
+}; 
 
 /**
  * @param {Route.LoaderArgs} args

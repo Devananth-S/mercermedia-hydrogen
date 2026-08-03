@@ -43,3 +43,55 @@ It includes product collections, product detail pages, predictive search, shoppi
 | CSS | Styling |
 | Vite | Build Tool |
 | Oxygen Ready | Deployment |
+
+## 📸 Project Screenshots
+
+### 🏠 Home Page
+
+| Desktop | Mobile |
+|---------|--------|
+| ![Home Desktop](public/screenshots/Home-page-(Desktop).png) | ![Home Mobile](public/screenshots/Home-page-(Mobile).png) |
+
+### 📂 Collection Page
+
+| Desktop | Mobile |
+|---------|--------|
+| ![Collection Desktop](public/screenshots/Collection-page-(Desktop).png) | ![Collection Mobile](public/screenshots/Collection-page-(Mobile).png) |
+
+---
+
+### 🛍️ Product Page
+
+| Desktop | Mobile |
+|---------|--------|
+| ![Product Desktop](public/screenshots/Product-page-(Desktop).png) | ![Product Mobile](public/screenshots/Product-page-(Mobile).png) |
+
+---
+
+### 🔍 Search Page
+
+| Desktop | Mobile |
+|---------|--------|
+| ![Search Desktop](public/screenshots/Search-page-(Desktop).png) | ![Search Mobile](public/screenshots/Search-page-(Mobile).png) |
+
+---
+
+### 🛒 Cart Page
+
+| Desktop | Mobile |
+|---------|--------|
+| ![Cart Desktop](public/screenshots/Cart-page-(Desktop).png) | ![Cart Mobile](public/screenshots/Cart-page-(Mobile).png) |
+
+---
+
+### 🛒 Ajax Cart
+
+| Desktop | Mobile |
+|---------|--------|
+| ![Ajax Desktop](public/screenshots/Ajax-Cart.png) | ![Ajax Mobile](public/screenshots/Mobile-Ajax-Cart.png) |
+
+---
+
+### 📱 Mobile Header Menu
+
+![Header Menu Mobile](public/screenshots/Mobile%20Menu.png)

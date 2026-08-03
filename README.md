@@ -1,45 +1,49 @@
-# Hydrogen template: Skeleton
+# MercerMedia - Shopify Hydrogen Headless Store
 
-Hydrogen is Shopify’s stack for headless commerce. Hydrogen is designed to dovetail with [React Router](https://reactrouter.com/), the modern multi-strategy router for React. This template contains a **minimal setup** of components, queries and tooling to get started with Hydrogen.
+Modern eCommerce storefront built using Shopify Hydrogen.
 
-[Check out Hydrogen docs](https://shopify.dev/custom-storefronts/hydrogen)
-[Get familiar with React Router](https://reactrouter.com/start/framework/routing)
+## 🚀 Live Demo
+(Deploy pannina apram link add pannuvom)
 
-## What's included
+## 📸 Screenshots
+(Home, Collection, Product, Cart)
 
+## ✨ Features
+- Shopify Hydrogen
+- Headless Commerce
+- Product Listing
+- Collection Filtering
+- Product Variants
+- Add to Cart
+- Cart Drawer
+- Product Reviews
+- Related Products
+- Search
+- Responsive Design
+
+## 🛠 Tech Stack
+- Shopify Hydrogen
+- React
 - React Router
-- Hydrogen
-- Oxygen
-- Vite
-- Shopify CLI
-- ESLint
-- Prettier
-- GraphQL generator
-- TypeScript and JavaScript flavors
-- Minimal setup of components and routes
+- GraphQL
+- Shopify Storefront API
+- CSS
 
-## Getting started
+## 📱 Responsive
+- Desktop
+- Tablet
+- Mobile
 
-**Requirements:**
+## ⚡ Lighthouse
+| Metric | Score |
+|--------|------:|
+| Performance | 95 |
+| Accessibility | 84 |
+| Best Practices | 77 |
+| SEO | 92 |
 
-- Node.js version 22.x or 24.x
-
-```bash
-npm create @shopify/hydrogen@latest
-```
-
-## Building for production
+## 📦 Installation
 
 ```bash
-npm run build
-```
-
-## Local development
-
-```bash
+npm install
 npm run dev
-```
-
-## Setup for using Customer Account API (`/account` section)
-
-Follow step 1 and 2 of <https://shopify.dev/docs/custom-storefronts/building-with-the-customer-account-api/hydrogen#step-1-set-up-a-public-domain-for-local-development>

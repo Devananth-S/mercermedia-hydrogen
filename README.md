@@ -1,49 +1,31 @@
-# MercerMedia - Shopify Hydrogen Headless Store
+# MercerMedia – Shopify Hydrogen Headless Commerce Store
 
-Modern eCommerce storefront built using Shopify Hydrogen.
+A modern Headless eCommerce Store built using Shopify Hydrogen, React, GraphQL and Storefront API.
 
-## 🚀 Live Demo
-(Deploy pannina apram link add pannuvom)
+---
 
-## 📸 Screenshots
-(Home, Collection, Product, Cart)
+## 🚀 About
+
+MercerMedia is a modern fashion eCommerce application built with Shopify Hydrogen. The project demonstrates a production-style headless storefront using Shopify Storefront API, GraphQL, React and Remix.
+
+The application includes responsive design, product collections, product pages, search, shopping cart, customer accounts, blogs, SEO optimization and performance improvements.
+
+---
 
 ## ✨ Features
-- Shopify Hydrogen
-- Headless Commerce
-- Product Listing
-- Collection Filtering
-- Product Variants
-- Add to Cart
-- Cart Drawer
-- Product Reviews
-- Related Products
-- Search
+
 - Responsive Design
-
-## 🛠 Tech Stack
 - Shopify Hydrogen
-- React
-- React Router
-- GraphQL
 - Shopify Storefront API
-- CSS
-
-## 📱 Responsive
-- Desktop
-- Tablet
-- Mobile
-
-## ⚡ Lighthouse
-| Metric | Score |
-|--------|------:|
-| Performance | 95 |
-| Accessibility | 84 |
-| Best Practices | 77 |
-| SEO | 92 |
-
-## 📦 Installation
-
-```bash
-npm install
-npm run dev
+- GraphQL Data Fetching
+- Product Collections
+- Product Details
+- Product Variants
+- Shopping Cart
+- Predictive Search
+- Customer Accounts
+- Blog Pages
+- Related Products
+- Mobile Friendly
+- SEO Optimized
+- Lighthouse Optimized

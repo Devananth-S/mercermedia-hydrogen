@@ -1,0 +1,9 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "mercermedia-hydrogen",
+  "main": "./dist/server/index.js",
+  "compatibility_date": "2026-08-20",
+  "assets": {
+    "directory": "./dist/client"
+  }
+}

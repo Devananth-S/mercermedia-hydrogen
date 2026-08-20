@@ -1,7 +1,9 @@
 # MercerMedia – Shopify Hydrogen Headless Commerce Store
 
 A modern Headless eCommerce Store built using **Shopify Hydrogen**, **React**, **GraphQL**, and the **Shopify Storefront API**.
+## 🚀 Live Demo
 
+🔗 [View Live Store](https://merchermedia-hydrogen.devanth0550.workers.dev)
 ---
 
 ## 🚀 About

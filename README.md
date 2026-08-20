@@ -4,7 +4,7 @@ A modern Headless eCommerce Store built using **Shopify Hydrogen**, **React**, *
 
 ## 🚀 Live Demo
 
-🔗 [View Live Store](https://merchermedia-hydrogen.devanth0550.workers.dev)
+🔗 [View Live Store](https://mercermedia-hydrogen.devananth05550.workers.dev/)
 
 ---
 
